@@ -1,4 +1,4 @@
-// Type definitions for React 16.1
+// Type definitions for React 16.3
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -16,6 +16,7 @@
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Sean Scally <https://github.com/scally>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -263,6 +264,24 @@ declare namespace React {
         element: ReactElement<P>,
         props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
+
+    // Context via RenderProps
+    type Provider<T> = ComponentType<{
+        value: T,
+        children?: ReactNode
+    }>;
+    type Consumer<T> = ComponentType<{
+        children: (value: T) => ReactNode,
+        unstable_observedBits?: number
+    }>;
+    interface Context<T> {
+        Provider: Provider<T>;
+        Consumer: Consumer<T>;
+    }
+    function createContext<T>(
+        defaultValue: T,
+        calculateChangedBits?: (prev: T, next: T) => number
+    ): Context<T>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
