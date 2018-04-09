@@ -20,6 +20,7 @@
 //                 Klaus Meinhardt <https://github.com/ajafff>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -4683,11 +4684,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
@@ -5615,8 +5616,8 @@ declare module "assert" {
             });
         }
 
-        export function fail(message: string): void;
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(message: string): never;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;

@@ -19,6 +19,7 @@
 //                 Alberto Schiabel <https://github.com/jkomyno>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -943,6 +944,7 @@ declare module "http" {
         'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'authorization'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -4661,11 +4663,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
@@ -5155,9 +5157,9 @@ declare module "crypto" {
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): void;
+        setAutoPadding(auto_padding?: boolean): this;
         getAuthTag(): Buffer;
-        setAAD(buffer: Buffer): void;
+        setAAD(buffer: Buffer): this;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
@@ -5168,9 +5170,9 @@ declare module "crypto" {
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding?: boolean): void;
-        setAuthTag(tag: Buffer): void;
-        setAAD(buffer: Buffer): void;
+        setAutoPadding(auto_padding?: boolean): this;
+        setAuthTag(tag: Buffer): this;
+        setAAD(buffer: Buffer): this;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
@@ -5585,8 +5587,8 @@ declare module "assert" {
             });
         }
 
-        export function fail(message: string): void;
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(message: string): never;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
