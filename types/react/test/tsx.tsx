@@ -76,7 +76,31 @@ const StatelessComponentWithoutProps: React.SFC = (props) => {
 <StatelessComponentWithoutProps />;
 
 // React.createContext
-const ContextWithRenderProps = React.createContext('defaultValue');
+interface TestContext {
+    assert: boolean;
+}
+
+const ContextWithDefault = React.createContext<TestContext>({ assert: true });
+const ContextWithoutDefault = React.createContext<TestContext>();
+const OptionalContext = React.createContext<TestContext | undefined>();
+React.createContext<TestContext>({ wrong: true }); // $ExpectError
+
+<ContextWithoutDefault.Provider value={{ assert: true }}>
+    <ContextWithoutDefault.Consumer>{({ assert }) => assert}</ContextWithoutDefault.Consumer>
+</ContextWithoutDefault.Provider>;
+
+<ContextWithDefault.Provider value={{ assert: true }}>
+    <ContextWithDefault.Consumer>{({ assert }) => assert}</ContextWithDefault.Consumer>
+</ContextWithDefault.Provider>;
+
+<ContextWithoutDefault.Provider value={{ wrong: true }}></ContextWithoutDefault.Provider>; // $ExpectError
+<ContextWithoutDefault.Consumer>{({ wrong }) => wrong}</ContextWithoutDefault.Consumer>; // $ExpectError
+
+<OptionalContext.Provider value={undefined}></OptionalContext.Provider>;
+<OptionalContext.Provider value={{ assert: true }}></OptionalContext.Provider>;
+
+<OptionalContext.Consumer>{(value) => value && value.assert}</OptionalContext.Consumer>;
+<OptionalContext.Consumer>{({ assert }) => assert}</OptionalContext.Consumer>; // $ExpectError
 
 // Fragments
 <div>
