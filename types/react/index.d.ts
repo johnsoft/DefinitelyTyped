@@ -281,10 +281,9 @@ declare namespace React {
         Consumer: Consumer<T>;
     }
     function createContext<T>(
-        defaultValue: T,
+        defaultValue?: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
-    function createContext<T>(): Context<T | undefined>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
